@@ -1,0 +1,565 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "React Native Directory API",
+    "version": "1.0.0",
+    "description": "This API returns information about React Native libraries. It supports various filters such as search terms, platform support, status flags, compatibility flags, type filters, and ordering options. All query parameters are optional."
+  },
+  "servers": [
+    {
+      "url": "https://reactnative.directory/",
+      "description": "React Native Directory Production"
+    }
+  ],
+  "paths": {
+    "/api/libraries": {
+      "get": {
+        "summary": "Search, filter, and paginate libraries",
+        "description": "Returns a filtered list of libraries based on search terms, platform support, status flags, compatibility, type filters and supports pagination.",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search term used for filtering libraries.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Pagination offset for the results.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results to return.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "android",
+            "in": "query",
+            "description": "Filter for libraries supporting Android.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "ios",
+            "in": "query",
+            "description": "Filter for libraries supporting iOS.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "macos",
+            "in": "query",
+            "description": "Filter for libraries supporting macOS.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "tvos",
+            "in": "query",
+            "description": "Filter for libraries supporting tvOS.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "visionos",
+            "in": "query",
+            "description": "Filter for libraries supporting visionOS.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "web",
+            "in": "query",
+            "description": "Filter for libraries supporting Web.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "windows",
+            "in": "query",
+            "description": "Filter for libraries supporting Windows.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "wasRecentlyUpdated",
+            "in": "query",
+            "description": "Filter for libraries that have been updated recently.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "hasTypes",
+            "in": "query",
+            "description": "Filter for libraries with TypeScript types.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "hasImage",
+            "in": "query",
+            "description": "Filter for libraries with an image preview.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "hasExample",
+            "in": "query",
+            "description": "Filter for libraries that include examples.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "newArchitecture",
+            "in": "query",
+            "description": "Filter for libraries supporting the new architecture.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "isPopular",
+            "in": "query",
+            "description": "Filter for popular libraries.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "isMaintained",
+            "in": "query",
+            "description": "Filter for libraries that are actively maintained.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "expoGo",
+            "in": "query",
+            "description": "Filter for libraries that work with Expo Go.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "fireos",
+            "in": "query",
+            "description": "Filter for libraries that work with Fire OS.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "skipLibs",
+            "in": "query",
+            "description": "Hide libraries.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "skipTools",
+            "in": "query",
+            "description": "Hide development tools.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "skipTemplates",
+            "in": "query",
+            "description": "Hide templates.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Sort order of the results.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updated",
+                "relevance",
+                "added",
+                "quality",
+                "popularity",
+                "downloads",
+                "stars",
+                "issues"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A JSON object containing an array of library objects and the total count.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Data"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GithubUrls": {
+        "type": "object",
+        "description": "Schema for the GitHub URLs.",
+        "properties": {
+          "repo": {
+            "type": "string",
+            "description": "Repository URL string."
+          },
+          "clone": {
+            "type": "string",
+            "description": "Clone URL string."
+          },
+          "homepage": {
+            "type": "string",
+            "nullable": true,
+            "description": "Homepage URL; may be null."
+          }
+        },
+        "required": [
+          "repo",
+          "clone",
+          "homepage"
+        ]
+      },
+      "GithubStats": {
+        "type": "object",
+        "description": "Schema for GitHub statistics.",
+        "properties": {
+          "hasIssues": {
+            "type": "boolean"
+          },
+          "hasWiki": {
+            "type": "boolean"
+          },
+          "hasSponsorships": {
+            "type": "boolean"
+          },
+          "hasTopics": {
+            "type": "boolean"
+          },
+          "updatedAt": {
+            "type": "string",
+            "description": "Timestamp in ISO 8601 format."
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "Timestamp in ISO 8601 format."
+          },
+          "pushedAt": {
+            "type": "string",
+            "description": "Timestamp in ISO 8601 format."
+          },
+          "forks": {
+            "type": "number"
+          },
+          "issues": {
+            "type": "number"
+          },
+          "subscribers": {
+            "type": "number"
+          },
+          "stars": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "hasIssues",
+          "hasWiki",
+          "hasSponsorships",
+          "hasTopics",
+          "updatedAt",
+          "createdAt",
+          "pushedAt",
+          "forks",
+          "issues",
+          "subscribers",
+          "stars"
+        ]
+      },
+      "GithubLicense": {
+        "type": "object",
+        "description": "Schema for a license object. This object is optional in the parent schema.",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+          "spdxId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "url",
+          "id",
+          "key",
+          "spdxId"
+        ]
+      },
+      "GithubLastRelease": {
+        "type": "object",
+        "description": "Schema for the 'lastRelease' object.",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "tagName": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "ISO date string for release creation."
+          },
+          "publishedAt": {
+            "type": "string",
+            "description": "ISO date string for release publication."
+          },
+          "isPrerelease": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "name",
+          "tagName",
+          "createdAt",
+          "publishedAt",
+          "isPrerelease"
+        ]
+      },
+      "Github": {
+        "type": "object",
+        "description": "Schema for the GitHub repository information. Combines URLs, statistics, and other metadata.",
+        "properties": {
+          "urls": {
+            "$ref": "#/components/schemas/GithubUrls"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/GithubStats"
+          },
+          "name": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "isPrivate": {
+            "type": "boolean"
+          },
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "registry": {
+            "type": "string"
+          },
+          "license": {
+            "$ref": "#/components/schemas/GithubLicense"
+          },
+          "lastRelease": {
+            "$ref": "#/components/schemas/GithubLastRelease"
+          },
+          "hasTypes": {
+            "type": "boolean"
+          },
+          "newArchitecture": {
+            "type": "boolean"
+          },
+          "isArchived": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "urls",
+          "stats",
+          "name",
+          "fullName",
+          "isPrivate",
+          "newArchitecture",
+          "isArchived"
+        ]
+      },
+      "Npm": {
+        "type": "object",
+        "description": "Schema for the NPM information. All fields are optional.",
+        "properties": {
+          "downloads": {
+            "type": "number"
+          },
+          "start": {
+            "type": "string"
+          },
+          "end": {
+            "type": "string"
+          }
+        }
+      },
+      "Library": {
+        "type": "object",
+        "description": "Schema for each library object.",
+        "properties": {
+          "githubUrl": {
+            "type": "string"
+          },
+          "examples": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "ios": {
+            "type": "boolean"
+          },
+          "android": {
+            "type": "boolean"
+          },
+          "web": {
+            "type": "boolean"
+          },
+          "expoGo": {
+            "type": "boolean"
+          },
+          "macos": {
+            "type": "boolean"
+          },
+          "tvos": {
+            "type": "boolean"
+          },
+          "fireos": {
+            "type": "boolean"
+          },
+          "newArchitecture": {
+            "type": "boolean"
+          },
+          "github": {
+            "$ref": "#/components/schemas/Github"
+          },
+          "npmPkg": {
+            "type": "string"
+          },
+          "npm": {
+            "$ref": "#/components/schemas/Npm"
+          },
+          "score": {
+            "type": "number"
+          },
+          "matchingScoreModifiers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "popularity": {
+            "type": "number"
+          },
+          "topicSearchString": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "githubUrl",
+          "examples",
+          "ios",
+          "android",
+          "newArchitecture",
+          "github"
+        ]
+      },
+      "Data": {
+        "type": "object",
+        "description": "Main schema for the JSON response.",
+        "properties": {
+          "libraries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Library"
+            }
+          },
+          "total": {
+            "type": "number",
+            "description": "Total number of libraries."
+          }
+        },
+        "required": [
+          "libraries",
+          "total"
+        ]
+      }
+    }
+  }
+}
