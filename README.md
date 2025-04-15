@@ -19,6 +19,21 @@ JSONRPC-driven server that implements the [Model Context Protocol (MCP)](https:/
 - **Extensible TypeScript Architecture:**  
   Built on TypeScript for clarity and scalability. The design makes it easy to add new tools or extend existing functionality.
 
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (v20 or newer recommended)
+- [npm](https://www.npmjs.com/) (or your favorite package manager)
+
+## Installation
+
+So far there is no npm package. Clone the repository and install the necessary dependencies:
+
+```bash
+git clone <repository-url>
+cd mcp-reactnative-directory
+npm install
+```
+
 ## Usage
 
 ### MCP Config
